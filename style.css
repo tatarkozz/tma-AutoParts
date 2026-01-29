@@ -1,213 +1,2429 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoParts - Магазин автозапчастей</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body>
-    <div class="app-container">
-        <!-- Шапка приложения -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-car"></i>
-                    <h1>AutoParts</h1>
-                </div>
-                <div class="user-section">
-                    <div class="cart-icon" id="cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cart-count">0</span>
-                    </div>
-                    <div class="user-avatar" id="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
-            </div>
+/* ==========================================================================
+   Сброс и базовые стили
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-            <!-- Поисковая строка -->
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Поиск запчастей по названию или VIN...">
-                    <button id="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-        </header>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;600&display=swap');
 
-        <!-- Основной контент -->
-        <main class="main-content">
-            <!-- Боковое меню фильтров -->
-            <aside class="sidebar">
-                <div class="filter-section">
-                    <h3><i class="fas fa-filter"></i> Фильтры</h3>
+:root {
+    /* Цветовая палитра - тема автозапчастей */
+    --primary: #E53935; /* Красный - как стоп-сигнал, энергичный */
+    --primary-dark: #C62828;
+    --primary-light: #FF6B6B;
+    
+    --secondary: #37474F; /* Серый металлик */
+    --secondary-dark: #263238;
+    --secondary-light: #546E7A;
+    
+    --accent: #FF9800; /* Оранжевый - как предупреждение, призыв к действию */
+    --accent-dark: #F57C00;
+    --accent-light: #FFB74D;
+    
+    --success: #4CAF50; /* Зеленый - доступно, в наличии */
+    --warning: #FFC107; /* Желтый - акция */
+    --danger: #F44336; /* Красный - распродажа, опасность */
+    
+    --metal: #607D8B; /* Металлический серый */
+    --steel: #90A4AE; /* Стальной */
+    --oil: #212121; /* Черный как масло */
+    --chrome: #ECEFF1; /* Хромированный */
+    
+    /* Фон и текст */
+    --bg-dark: #121212;
+    --bg-card: #1E1E1E;
+    --bg-light: #2D2D2D;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0BEC5;
+    --text-muted: #78909C;
+    
+    /* Эффекты */
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.4);
+    --glow: 0 0 20px rgba(255, 107, 107, 0.3);
+    --metal-glow: 0 0 15px rgba(144, 164, 174, 0.2);
+    
+    /* Радиусы */
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+    
+    /* Анимации */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-                    <div class="filter-group">
-                        <h4>Категория</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" value="engine">
-                                <span class="checkmark"></span>
-                                Двигатель
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="brakes">
-                                <span class="checkmark"></span>
-                                Тормозная система
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="suspension">
-                                <span class="checkmark"></span>
-                                Подвеска
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="electrical">
-                                <span class="checkmark"></span>
-                                Электрика
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="body">
-                                <span class="checkmark"></span>
-                                Кузовные детали
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" value="exhaust">
-                                <span class="checkmark"></span>
-                                Выхлопная система
-                            </label>
-                        </div>
-                    </div>
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+}
 
-                    <div class="filter-group">
-                        <h4>Цена</h4>
-                        <div class="price-range">
-                            <div class="price-inputs">
-                                <input type="number" id="min-price" placeholder="от 0" min="0">
-                                <span>-</span>
-                                <input type="number" id="max-price" placeholder="до 50000" min="0">
-                            </div>
-                            <button id="apply-price" class="btn-small">Применить</button>
-                        </div>
-                    </div>
+/* Эффект сетки на фоне */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 107, 107, 0.05) 0%, transparent 55%),
+        radial-gradient(circle at 75% 75%, rgba(96, 125, 139, 0.05) 0%, transparent 55%);
+    z-index: -1;
+}
 
-                    <div class="filter-group">
-                        <h4>Наличие</h4>
-                        <label class="filter-option">
-                            <input type="checkbox" id="in-stock">
-                            <span class="checkmark"></span>
-                            Только в наличии
-                        </label>
-                    </div>
+/* Анимированные линии на фоне */
+.bg-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 152, 0, 0.03) 2px,
+            rgba(255, 152, 0, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(96, 125, 139, 0.03) 2px,
+            rgba(96, 125, 139, 0.03) 4px
+        );
+    z-index: -1;
+    opacity: 0.3;
+}
 
-                    <button id="apply-filters" class="btn-primary">
-                        <i class="fas fa-check"></i> Применить фильтры
-                    </button>
-                    <button id="reset-filters" class="btn-secondary">
-                        <i class="fas fa-redo"></i> Сбросить
-                    </button>
-                </div>
+.app-container {
+    max-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
 
-                <div class="promo-banner">
-                    <h4><i class="fas fa-gift"></i> Акция!</h4>
-                    <p>Скидка 10% на первый заказ</p>
-                    <small>Используйте код: WELCOME10</small>
-                </div>
-            </aside>
+/* ==========================================================================
+   Шапка приложения - Автостиль
+   ========================================================================== */
+.app-header {
+    background: linear-gradient(135deg, 
+        rgba(33, 33, 33, 0.95) 0%, 
+        rgba(38, 50, 56, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary);
+    padding: 16px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    animation: slideDown 0.5s ease-out;
+}
 
-            <!-- Основная область с товарами -->
-            <section class="products-section">
-                <div class="section-header">
-                    <h2 id="section-title">Все запчасти</h2>
-                    <div class="sort-options">
-                        <select id="sort-by">
-                            <option value="name">По названию</option>
-                            <option value="price-low">Цена: по возрастанию</option>
-                            <option value="price-high">Цена: по убыванию</option>
-                            <option value="popular">Популярные</option>
-                        </select>
-                    </div>
-                </div>
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-                <!-- Контейнер для товаров -->
-                <div class="products-grid" id="products-grid">
-                    <!-- Товары будут загружены через JavaScript -->
-                </div>
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+}
 
-                <!-- Индикатор загрузки -->
-                <div class="loading" id="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Загрузка товаров...
-                </div>
-            </section>
-        </main>
+/* Логотип с эффектом хрома */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, 
+        rgba(96, 125, 139, 0.1), 
+        rgba(144, 164, 174, 0.05));
+    border-radius: var(--radius);
+    border: 1px solid rgba(144, 164, 174, 0.2);
+    transition: var(--transition);
+}
 
-        <!-- Нижняя навигация -->
-        <nav class="bottom-nav">
-            <button class="nav-btn active" data-page="catalog">
-                <i class="fas fa-th-large"></i>
-                <span>Каталог</span>
-            </button>
-            <button class="nav-btn" data-page="categories">
-                <i class="fas fa-list"></i>
-                <span>Категории</span>
-            </button>
-            <button class="nav-btn cart-btn" data-page="cart" id="cart-tab">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Корзина</span>
-            </button>
-            <button class="nav-btn" data-page="orders">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Заказы</span>
-            </button>
-            <button class="nav-btn" data-page="profile">
-                <i class="fas fa-user"></i>
-                <span>Профиль</span>
-            </button>
-        </nav>
-    </div>
+.logo:hover {
+    background: linear-gradient(135deg, 
+        rgba(96, 125, 139, 0.2), 
+        rgba(144, 164, 174, 0.1));
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--metal-glow);
+}
 
-    <!-- Модальное окно товара -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <div class="modal-body" id="modal-body">
-                <!-- Контент модального окна -->
-            </div>
-        </div>
-    </div>
+.logo-icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 0 20px rgba(229, 57, 53, 0.4);
+    animation: pulse 2s infinite;
+}
 
-    <!-- Модальное окно корзины -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content cart-modal">
-            <button class="modal-close" id="cart-close">&times;</button>
-            <h2><i class="fas fa-shopping-cart"></i> Ваша корзина</h2>
-            <div class="cart-items" id="cart-items">
-                <!-- Товары в корзине -->
-            </div>
-            <div class="cart-summary">
-                <div class="cart-total">
-                    <span>Итого:</span>
-                    <span class="total-price" id="cart-total">0 руб.</span>
-                </div>
-                <div class="cart-actions">
-                    <button class="btn-secondary" id="clear-cart">
-                        <i class="fas fa-trash"></i> Очистить
-                    </button>
-                    <button class="btn-primary" id="checkout-btn">
-                        <i class="fas fa-credit-card"></i> Оформить заказ
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(229, 57, 53, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(229, 57, 53, 0.6);
+    }
+}
 
-    <!-- Уведомления -->
-    <div class="notification" id="notification">
-        <span id="notification-text"></span>
-    </div>
+.logo-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
-    <script src="app.js"></script>
-</body>
-</html>
+.logo h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--text-primary), var(--chrome));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.logo h1::after {
+    content: 'PARTS';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+/* Секция пользователя */
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Иконка корзины с эффектом */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--text-primary);
+    border: 2px solid rgba(255, 152, 0, 0.3);
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cart-icon:hover {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--glow);
+    border-color: var(--accent);
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: linear-gradient(135deg, var(--danger), var(--primary));
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-dark);
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.4);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Аватар пользователя */
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--metal), var(--steel));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.user-avatar::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+.user-avatar:hover {
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 0 25px rgba(144, 164, 174, 0.4);
+}
+
+/* Поисковая строка в стиле приборной панели */
+.search-container {
+    margin-top: 12px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.9),
+        rgba(45, 45, 45, 0.9));
+    border-radius: var(--radius-xl);
+    padding: 8px 20px;
+    border: 1px solid rgba(255, 152, 0, 0.2);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.search-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent), 
+        transparent);
+    animation: searchGlow 2s infinite;
+}
+
+@keyframes searchGlow {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.search-box:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 25px rgba(255, 152, 0, 0.2);
+}
+
+.search-box i:first-child {
+    color: var(--accent);
+    margin-right: 15px;
+    font-size: 18px;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 12px 0;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+#search-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+    font-size: 18px;
+}
+
+#search-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 6px 25px rgba(255, 152, 0, 0.5);
+}
+
+/* ==========================================================================
+   Основной контент
+   ========================================================================== */
+.main-content {
+    flex: 1;
+    display: flex;
+    padding: 25px;
+    gap: 25px;
+    overflow-y: auto;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+/* Боковая панель - Стиль техпанели */
+.sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.filter-section {
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.95),
+        rgba(45, 45, 45, 0.95));
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(96, 125, 139, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        var(--primary), 
+        var(--accent), 
+        var(--success));
+}
+
+.filter-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-section h3 i {
+    color: var(--accent);
+    font-size: 24px;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+.filter-group {
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.filter-group h4 {
+    margin-bottom: 15px;
+    color: var(--chrome);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(144, 164, 174, 0.3);
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    user-select: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    background: rgba(96, 125, 139, 0.05);
+    border: 1px solid transparent;
+}
+
+.filter-option:hover {
+    background: rgba(255, 152, 0, 0.1);
+    color: var(--text-primary);
+    border-color: rgba(255, 152, 0, 0.3);
+    transform: translateX(5px);
+}
+
+.filter-option input {
+    display: none;
+}
+
+.checkmark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--metal);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: var(--transition);
+    background: rgba(30, 30, 30, 0.5);
+}
+
+.checkmark::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.filter-option input:checked + .checkmark {
+    border-color: var(--accent);
+    background: rgba(255, 152, 0, 0.1);
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+}
+
+.filter-option input:checked + .checkmark::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.filter-option input:checked ~ span {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.price-range {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-inputs input {
+    flex: 1;
+    padding: 12px 15px;
+    background: rgba(30, 30, 30, 0.7);
+    border: 2px solid var(--metal);
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    transition: var(--transition);
+}
+
+.price-inputs input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.2);
+}
+
+.price-inputs span {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.btn-small {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--metal), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-small:hover {
+    background: linear-gradient(135deg, var(--steel), var(--metal));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(96, 125, 139, 0.3);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: var(--transition);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(229, 57, 53, 0.4);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--metal), var(--secondary-light));
+    color: var(--text-primary);
+    border: 2px solid rgba(144, 164, 174, 0.3);
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: var(--transition);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, var(--steel), var(--metal));
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(144, 164, 174, 0.3);
+}
+
+/* Акционный баннер */
+.promo-banner {
+    background: linear-gradient(135deg, 
+        rgba(76, 175, 80, 0.9),
+        rgba(56, 142, 60, 0.9));
+    color: white;
+    padding: 25px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: promoPulse 3s infinite;
+}
+
+@keyframes promoPulse {
+    0%, 100% {
+        box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        box-shadow: 0 12px 40px rgba(76, 175, 80, 0.5);
+    }
+}
+
+.promo-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 70%
+    );
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.promo-banner h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+}
+
+.promo-banner h4 i {
+    font-size: 24px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.promo-banner p {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.promo-banner small {
+    opacity: 0.9;
+    font-size: 13px;
+    letter-spacing: 1px;
+    display: block;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    margin-top: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ==========================================================================
+   Секция товаров - Стиль выставочного зала
+   ========================================================================== */
+.products-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.8),
+        rgba(45, 45, 45, 0.8));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(144, 164, 174, 0.2);
+    box-shadow: var(--shadow);
+}
+
+.section-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+}
+
+.sort-options {
+    position: relative;
+}
+
+.sort-options select {
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-light));
+    border: 2px solid var(--metal);
+    border-radius: var(--radius);
+    font-size: 15px;
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    min-width: 200px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FF9800' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    padding-right: 50px;
+    transition: var(--transition);
+}
+
+.sort-options select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.2);
+}
+
+.sort-options::before {
+    content: '🚀';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 18px;
+    z-index: 1;
+}
+
+/* Сетка товаров - Стиль витрины */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.product-card {
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.9),
+        rgba(45, 45, 45, 0.9));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    border: 1px solid rgba(144, 164, 174, 0.2);
+    position: relative;
+    animation: cardAppear 0.6s ease-out backwards;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-card:nth-child(2) { animation-delay: 0.1s; }
+.product-card:nth-child(3) { animation-delay: 0.2s; }
+.product-card:nth-child(4) { animation-delay: 0.3s; }
+.product-card:nth-child(5) { animation-delay: 0.4s; }
+.product-card:nth-child(6) { animation-delay: 0.5s; }
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    z-index: 2;
+}
+
+.product-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+.product-card:hover::before {
+    animation: lineFlow 2s infinite linear;
+}
+
+@keyframes lineFlow {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.product-image {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(135deg, var(--bg-dark), var(--oil));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 152, 0, 0.1) 50%,
+        transparent 70%
+    );
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.product-image i {
+    font-size: 80px;
+    color: var(--metal);
+    opacity: 0.3;
+    transition: var(--transition);
+}
+
+.product-card:hover .product-image i {
+    color: var(--accent);
+    opacity: 0.5;
+    transform: scale(1.1);
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    min-height: 60px;
+}
+
+.product-header h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+    flex: 1;
+}
+
+.stock-status {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+    margin-left: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.in-stock {
+    background: linear-gradient(135deg, var(--success), #2E7D32);
+    color: white;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.in-stock:hover {
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+    transform: scale(1.05);
+}
+
+.out-of-stock {
+    background: linear-gradient(135deg, var(--danger), #C62828);
+    color: white;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.product-category {
+    font-size: 13px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 152, 0, 0.2);
+}
+
+.product-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(144, 164, 174, 0.2);
+}
+
+.product-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    position: relative;
+    padding-left: 30px;
+}
+
+.product-price::before {
+    content: '₽';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--text-muted);
+}
+
+.product-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn-icon:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-cart {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+}
+
+.btn-cart:hover {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.5);
+}
+
+.btn-favorite {
+    background: linear-gradient(135deg, var(--metal), var(--steel));
+    color: var(--text-primary);
+    border: 1px solid rgba(144, 164, 174, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-favorite:hover {
+    background: linear-gradient(135deg, var(--steel), var(--metal));
+    border-color: var(--accent);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(144, 164, 174, 0.3);
+}
+
+.btn-favorite.active {
+    background: linear-gradient(135deg, var(--danger), #C62828);
+    color: white;
+    border-color: var(--danger);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.btn-favorite.active:hover {
+    background: linear-gradient(135deg, #EF5350, var(--danger));
+}
+
+/* Индикатор загрузки */
+.loading {
+    text-align: center;
+    padding: 60px;
+    color: var(--text-secondary);
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+}
+
+.loading i {
+    margin-right: 15px;
+    font-size: 28px;
+    color: var(--accent);
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent), 
+        transparent);
+    animation: loadingLine 2s infinite ease-in-out;
+}
+
+@keyframes loadingLine {
+    0%, 100% {
+        width: 50px;
+    }
+    50% {
+        width: 200px;
+    }
+}
+
+/* ==========================================================================
+   Нижняя навигация - Стиль приборной панели
+   ========================================================================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, 
+        rgba(33, 33, 33, 0.98),
+        rgba(38, 50, 56, 0.98));
+    backdrop-filter: blur(20px);
+    border-top: 2px solid var(--primary);
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    z-index: 1000;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: var(--transition);
+    gap: 6px;
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary);
+    transform: translateY(-100%);
+    transition: var(--transition);
+}
+
+.nav-btn i {
+    font-size: 22px;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+}
+
+.nav-btn span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.nav-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(
+        circle,
+        rgba(229, 57, 53, 0.2) 0%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.nav-btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.nav-btn:hover {
+    color: var(--text-primary);
+    transform: translateY(-5px);
+}
+
+.nav-btn:hover i {
+    color: var(--accent);
+    transform: scale(1.2);
+}
+
+.nav-btn.active {
+    color: var(--accent);
+}
+
+.nav-btn.active i {
+    color: var(--accent);
+    filter: drop-shadow(0 0 8px rgba(255, 152, 0, 0.5));
+}
+
+.nav-btn.active::before {
+    transform: translateY(0);
+}
+
+.nav-btn.active::after {
+    transform: translate(-50%, -50%) scale(1);
+    background: radial-gradient(
+        circle,
+        rgba(255, 152, 0, 0.3) 0%,
+        transparent 70%
+    );
+}
+
+.cart-btn {
+    position: relative;
+}
+
+.cart-btn::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, var(--danger), var(--primary));
+    border-radius: 50%;
+    border: 2px solid var(--bg-dark);
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+    animation: pulse 2s infinite;
+    z-index: 2;
+}
+
+/* ==========================================================================
+   Модальные окна - Стиль техобслуживания
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.95),
+        rgba(45, 45, 45, 0.95));
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid var(--primary);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(229, 57, 53, 0.1),
+        inset 0 0 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, 
+        var(--primary), 
+        var(--accent), 
+        var(--success));
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--danger), #C62828);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.modal-close:hover {
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 6px 25px rgba(244, 67, 54, 0.5);
+}
+
+.modal-body {
+    padding: 50px 30px 30px;
+}
+
+.cart-modal {
+    max-width: 500px;
+}
+
+.cart-modal h2 {
+    padding: 30px;
+    border-bottom: 2px solid rgba(144, 164, 174, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, 
+        rgba(38, 50, 56, 0.5),
+        rgba(30, 30, 30, 0.5));
+}
+
+.cart-modal h2 i {
+    color: var(--accent);
+    font-size: 28px;
+    text-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+}
+
+.cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+    background: rgba(30, 30, 30, 0.5);
+    border-radius: 4px;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--metal), var(--steel));
+    border-radius: 4px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--steel), var(--accent));
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(144, 164, 174, 0.2);
+    gap: 20px;
+    transition: var(--transition);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    background: rgba(30, 30, 30, 0.5);
+}
+
+.cart-item:hover {
+    background: rgba(255, 152, 0, 0.05);
+    transform: translateX(5px);
+    border-color: rgba(255, 152, 0, 0.3);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 2px solid var(--metal);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+
+.cart-item:hover .cart-item-image {
+    border-color: var(--accent);
+    transform: rotate(5deg) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+.cart-item-price {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.quantity-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--metal);
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-primary);
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.quantity-btn:hover {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--steel), var(--metal));
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(144, 164, 174, 0.3);
+}
+
+.quantity {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+.remove-item {
+    color: var(--danger);
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    transition: var(--transition);
+    margin-left: 10px;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-item:hover {
+    background: rgba(244, 67, 54, 0.2);
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.3);
+}
+
+.cart-summary {
+    padding: 30px;
+    border-top: 2px solid rgba(144, 164, 174, 0.3);
+    background: linear-gradient(135deg, 
+        rgba(38, 50, 56, 0.5),
+        rgba(30, 30, 30, 0.5));
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius);
+    border: 2px solid rgba(144, 164, 174, 0.2);
+}
+
+.cart-total span:first-child {
+    color: var(--text-secondary);
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.total-price {
+    color: var(--accent);
+    font-size: 32px;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+}
+
+.cart-actions {
+    display: flex;
+    gap: 15px;
+}
+
+/* ==========================================================================
+   Уведомления - Стиль сигнализации
+   ========================================================================== */
+.notification {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 20px 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(150%) rotate(10deg);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 3000;
+    max-width: 350px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    border-left: 5px solid var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: notificationShake 0.5s 0.3s;
+}
+
+@keyframes notificationShake {
+    0%, 100% {
+        transform: translateX(0) rotate(0);
+    }
+    25% {
+        transform: translateX(5px) rotate(2deg);
+    }
+    75% {
+        transform: translateX(-5px) rotate(-2deg);
+    }
+}
+
+.notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--accent), 
+        transparent, 
+        var(--accent));
+    animation: notificationLine 2s infinite linear;
+}
+
+@keyframes notificationLine {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.notification.show {
+    transform: translateX(0) rotate(0);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, var(--success), #2E7D32);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, var(--danger), #C62828);
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, var(--warning), #FF8F00);
+}
+
+.notification.info {
+    background: linear-gradient(135deg, var(--metal), var(--secondary));
+}
+
+#notification-text {
+    flex: 1;
+}
+
+.notification i {
+    font-size: 24px;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   Адаптивность
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    
+    .sort-options {
+        width: 100%;
+    }
+    
+    .sort-options select {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .app-header {
+        padding: 12px 15px;
+    }
+    
+    .logo h1 {
+        font-size: 20px;
+    }
+    
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .cart-icon, .user-avatar {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .product-image {
+        height: 200px;
+    }
+    
+    .bottom-nav {
+        padding: 12px 0;
+    }
+    
+    .nav-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    .nav-btn i {
+        font-size: 20px;
+    }
+    
+    .modal-content {
+        margin: 10px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .logo {
+        justify-content: center;
+    }
+    
+    .user-section {
+        justify-content: center;
+    }
+    
+    .search-box {
+        padding: 6px 15px;
+    }
+    
+    .search-box input {
+        font-size: 14px;
+    }
+    
+    #search-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .filter-section {
+        padding: 20px;
+    }
+    
+    .product-info {
+        padding: 20px;
+    }
+    
+    .product-price {
+        font-size: 22px;
+    }
+    
+    .cart-actions {
+        flex-direction: column;
+    }
+    
+    .notification {
+        top: 20px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
+}
+
+/* ==========================================================================
+   Дополнительные эффекты и украшения
+   ========================================================================== */
+
+/* Анимированные шестеренки на фоне */
+.gears {
+    position: fixed;
+    top: 50%;
+    left: 5%;
+    width: 100px;
+    height: 100px;
+    z-index: -1;
+    opacity: 0.05;
+    animation: rotateGear 20s linear infinite;
+}
+
+.gears:nth-child(2) {
+    top: 20%;
+    left: 80%;
+    width: 150px;
+    height: 150px;
+    animation-direction: reverse;
+    animation-duration: 25s;
+}
+
+.gears:nth-child(3) {
+    top: 70%;
+    left: 90%;
+    width: 80px;
+    height: 80px;
+    animation-duration: 15s;
+}
+
+@keyframes rotateGear {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.gears i {
+    font-size: 100px;
+    color: var(--metal);
+}
+
+/* Эффект искр */
+.spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+@keyframes spark {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty));
+    }
+}
+
+/* Эффект при наведении на кнопки */
+.btn-sparkle {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-sparkle::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: shineEffect 3s infinite linear;
+}
+
+@keyframes shineEffect {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Эффект параллакса для карточек товаров */
+.products-grid {
+    perspective: 1000px;
+}
+
+.product-card {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+}
+
+/* Градиентные границы */
+.gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-dark), var(--bg-card));
+    padding: 20px;
+    border-radius: var(--radius);
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        var(--primary), 
+        var(--accent), 
+        var(--success), 
+        var(--metal));
+    border-radius: calc(var(--radius) + 2px);
+    z-index: -1;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Счетчик товаров в корзине с анимацией */
+@keyframes cartBump {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cart-bump {
+    animation: cartBump 0.3s ease;
+}
+
+/* Эффект загрузки страницы */
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.engine-loader {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto 30px;
+}
+
+.engine-loader .gear {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 8px solid var(--metal);
+    border-radius: 50%;
+    border-top-color: var(--accent);
+    animation: spin 1s linear infinite;
+}
+
+.engine-loader .gear:nth-child(2) {
+    top: 40px;
+    left: 40px;
+    width: 40px;
+    height: 40px;
+    border-width: 6px;
+    animation-direction: reverse;
+    animation-duration: 0.8s;
+}
+
+.loader-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    color: var(--text-primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.loader-text::after {
+    content: '';
+    animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+/* Эффект неоновой вывески */
+.neon-text {
+    color: var(--text-primary);
+    text-shadow: 
+        0 0 5px var(--primary),
+        0 0 10px var(--primary),
+        0 0 15px var(--primary),
+        0 0 20px var(--accent),
+        0 0 35px var(--accent),
+        0 0 40px var(--accent);
+    animation: neonPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow: 
+            0 0 5px var(--primary),
+            0 0 10px var(--primary),
+            0 0 15px var(--primary),
+            0 0 20px var(--accent),
+            0 0 35px var(--accent),
+            0 0 40px var(--accent);
+    }
+    to {
+        text-shadow: 
+            0 0 10px var(--primary),
+            0 0 20px var(--primary),
+            0 0 30px var(--primary),
+            0 0 40px var(--accent),
+            0 0 70px var(--accent),
+            0 0 80px var(--accent);
+    }
+}
+
+/* Эффект металлического блеска */
+.metal-shine {
+    background: linear-gradient(
+        125deg,
+        var(--metal) 0%,
+        var(--steel) 25%,
+        var(--chrome) 50%,
+        var(--steel) 75%,
+        var(--metal) 100%
+    );
+    background-size: 200% 200%;
+    animation: metalShine 3s ease-in-out infinite;
+}
+
+@keyframes metalShine {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Эффект огня для акционных товаров */
+.fire-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.fire-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 152, 0, 0.1),
+        transparent
+    );
+    animation: fireFlow 2s infinite;
+}
+
+@keyframes fireFlow {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Эффект масляного пятна */
+.oil-slick {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(33, 33, 33, 0.8) 0%,
+        transparent 70%
+    );
+    filter: blur(20px);
+    opacity: 0.3;
+    animation: oilFloat 20s infinite linear;
+}
+
+@keyframes oilFloat {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(100px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(50px, 100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   Специальные эффекты для праздников/акций
+   ========================================================================== */
+
+/* Эффект снега для зимних акций */
+.snowflake {
+    position: absolute;
+    top: -20px;
+    color: var(--chrome);
+    font-size: 1em;
+    opacity: 0.8;
+    animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Эффект конфетти для распродаж */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    background: var(--accent);
+    opacity: 0.8;
+    animation: confettiFall 3s linear infinite;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Эффект звездного неба */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Адаптация эффектов для мобильных устройств */
+@media (max-width: 768px) {
+    .gears {
+        display: none;
+    }
+    
+    .oil-slick {
+        display: none;
+    }
+    
+    .neon-text {
+        text-shadow: 
+            0 0 5px var(--primary),
+            0 0 10px var(--primary),
+            0 0 15px var(--accent);
+    }
+}
+
+/* Оптимизация анимаций для производительности */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Поддержка темной/светлой темы */
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-dark: #f5f5f5;
+        --bg-card: #ffffff;
+        --bg-light: #f0f0f0;
+        --text-primary: #212121;
+        --text-secondary: #666666;
+        --text-muted: #888888;
+        --chrome: #fafafa;
+        --metal: #b0bec5;
+        --steel: #cfd8dc;
+    }
+    
+    body::before {
+        background-image: 
+            radial-gradient(circle at 25% 25%, rgba(229, 57, 53, 0.05) 0%, transparent 55%),
+            radial-gradient(circle at 75% 75%, rgba(144, 164, 174, 0.05) 0%, transparent 55%);
+    }
+    
+    .app-header {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.95) 0%, 
+            rgba(240, 240, 240, 0.95) 100%);
+    }
+    
+    .search-box {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.9),
+            rgba(240, 240, 240, 0.9));
+    }
+}
