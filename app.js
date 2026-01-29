@@ -122,7 +122,7 @@ async function loadProducts() {
                 name: 'Амортизатор KYB',
                 price: 8500,
                 category: 'suspension',
-                image: 'https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?w-300&h=200&fit=crop',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu_7YR1lHkp07VgvM9hE_pSXodBHFREvkr8g&s',
                 description: 'Газовый амортизатор для комфортной езды',
                 stock: 3,
                 rating: 4.9,
@@ -580,4 +580,5 @@ window.toggleFavorite = toggleFavorite;
 window.removeFromCart = removeFromCart;
 window.removeItemCompletely = removeItemCompletely;
 window.showCartModal = showCartModal;
+
 window.hideCartModal = hideCartModal;
