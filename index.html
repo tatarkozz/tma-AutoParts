@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoParts - Магазин автозапчастей</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Шапка приложения -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-car"></i>
+                    <h1>AutoParts</h1>
+                </div>
+                <div class="user-section">
+                    <div class="cart-icon" id="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </div>
+                    <div class="user-avatar" id="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Поисковая строка -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Поиск запчастей по названию или VIN...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Боковое меню фильтров -->
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h3><i class="fas fa-filter"></i> Фильтры</h3>
+                    
+                    <div class="filter-group">
+                        <h4>Категория</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="engine">
+                                <span class="checkmark"></span>
+                                Двигатель
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="brakes">
+                                <span class="checkmark"></span>
+                                Тормозная система
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="suspension">
+                                <span class="checkmark"></span>
+                                Подвеска
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="electrical">
+                                <span class="checkmark"></span>
+                                Электрика
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="body">
+                                <span class="checkmark"></span>
+                                Кузовные детали
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="exhaust">
+                                <span class="checkmark"></span>
+                                Выхлопная система
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4>Цена</h4>
+                        <div class="price-range">
+                            <div class="price-inputs">
+                                <input type="number" id="min-price" placeholder="от 0" min="0">
+                                <span>-</span>
+                                <input type="number" id="max-price" placeholder="до 50000" min="0">
+                            </div>
+                            <button id="apply-price" class="btn-small">Применить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4>Наличие</h4>
+                        <label class="filter-option">
+                            <input type="checkbox" id="in-stock">
+                            <span class="checkmark"></span>
+                            Только в наличии
+                        </label>
+                    </div>
+                    
+                    <button id="apply-filters" class="btn-primary">
+                        <i class="fas fa-check"></i> Применить фильтры
+                    </button>
+                    <button id="reset-filters" class="btn-secondary">
+                        <i class="fas fa-redo"></i> Сбросить
+                    </button>
+                </div>
+                
+                <div class="promo-banner">
+                    <h4><i class="fas fa-gift"></i> Акция!</h4>
+                    <p>Скидка 10% на первый заказ</p>
+                    <small>Используйте код: WELCOME10</small>
+                </div>
+            </aside>
+
+            <!-- Основная область с товарами -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2 id="section-title">Все запчасти</h2>
+                    <div class="sort-options">
+                        <select id="sort-by">
+                            <option value="name">По названию</option>
+                            <option value="price-low">Цена: по возрастанию</option>
+                            <option value="price-high">Цена: по убыванию</option>
+                            <option value="popular">Популярные</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Контейнер для товаров -->
+                <div class="products-grid" id="products-grid">
+                    <!-- Товары будут загружены через JavaScript -->
+                </div>
+                
+                <!-- Индикатор загрузки -->
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Загрузка товаров...
+                </div>
+            </section>
+        </main>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-page="catalog">
+                <i class="fas fa-th-large"></i>
+                <span>Каталог</span>
+            </button>
+            <button class="nav-btn" data-page="categories">
+                <i class="fas fa-list"></i>
+                <span>Категории</span>
+            </button>
+            <button class="nav-btn cart-btn" data-page="cart" id="cart-tab">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Корзина</span>
+            </button>
+            <button class="nav-btn" data-page="orders">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Заказы</span>
+            </button>
+            <button class="nav-btn" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Профиль</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Модальное окно товара -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Контент модального окна -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content cart-modal">
+            <button class="modal-close" id="cart-close">&times;</button>
+            <h2><i class="fas fa-shopping-cart"></i> Ваша корзина</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Товары в корзине -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Итого:</span>
+                    <span class="total-price" id="cart-total">0 руб.</span>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn-secondary" id="clear-cart">
+                        <i class="fas fa-trash"></i> Очистить
+                    </button>
+                    <button class="btn-primary" id="checkout-btn">
+                        <i class="fas fa-credit-card"></i> Оформить заказ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
