@@ -1,5 +1,5 @@
 // ==============================================
-// AutoParts TMA - Полноценный рабочий код с картинками
+// AutoParts TMA - Полноценный рабочий код
 // ==============================================
 
 // ==============================================
@@ -24,7 +24,7 @@ let filters = {
 };
 
 // ==============================================
-// 2. ЗАГРУЗКА ДАННЫХ С УНИКАЛЬНЫМИ КАРТИНКАМИ
+// 2. ЗАГРУЗКА ДАННЫХ
 // ==============================================
 const productsData = [
     {
@@ -34,11 +34,9 @@ const productsData = [
         oldPrice: 5000,
         category: 'brakes',
         brand: 'Brembo',
-        image: 'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://www.bremboparts.com/images/packaging/Pad_Prime.webp',
         images: [
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://www.bremboparts.com/images/packaging/Pad_Prime.webp',
         ],
         description: 'Высококачественные тормозные колодки премиум класса. Обеспечивают отличное торможение и долгий срок службы.',
         specifications: {
@@ -61,11 +59,9 @@ const productsData = [
         oldPrice: 1500,
         category: 'engine',
         brand: 'MANN',
-        image: 'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://tavil.ru/netcat_files/437/1609/h_2e503fe17804d699d036da478cac2f32',
         images: [
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://tavil.ru/netcat_files/437/1609/h_2e503fe17804d699d036da478cac2f32',
         ],
         description: 'Воздушный фильтр салонный с угольным элементом. Защищает от пыли и вредных примесей.',
         specifications: {
@@ -86,11 +82,9 @@ const productsData = [
         price: 8500,
         category: 'suspension',
         brand: 'KYB',
-        image: 'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://kyb.ru/gi/573c95baf94a7c983f131574.jpg',
         images: [
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://kyb.ru/gi/573c95baf94a7c983f131574.jpg'
         ],
         description: 'Газовый амортизатор для комфортной езды. Обеспечивает отличную управляемость.',
         specifications: {
@@ -112,11 +106,9 @@ const productsData = [
         oldPrice: 14000,
         category: 'electrical',
         brand: 'VARTA',
-        image: 'https://images.pexels.com/photos/110296/pexels-photo-110296.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://api.1ak.ru/storage/app/uploads/public/625/3c7/42d/thumb_12031_654_654_0_0_crop.jpg',
         images: [
-            'https://images.pexels.com/photos/110296/pexels-photo-110296.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/110296/pexels-photo-110296.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://api.1ak.ru/storage/app/uploads/public/625/3c7/42d/thumb_12031_654_654_0_0_crop.jpg'
         ],
         description: 'Свинцово-кислотный аккумулятор 75Ah. Высокий пусковой ток, надежный запуск в любую погоду.',
         specifications: {
@@ -138,11 +130,9 @@ const productsData = [
         oldPrice: 4000,
         category: 'oil',
         brand: 'Mobil',
-        image: 'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://maslenka18.ru/system/product_photo/742489/154285_original.jpg?1537859793',
         images: [
-            'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://maslenka18.ru/system/product_photo/742489/154285_original.jpg?1537859793'
         ],
         description: 'Синтетическое моторное масло 5W-40. Защита двигателя при любых температурах.',
         specifications: {
@@ -163,11 +153,9 @@ const productsData = [
         price: 1800,
         category: 'engine',
         brand: 'NGK',
-        image: 'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://ae01.alicdn.com/kf/S5ab384465e9f4e6aaa44d700b6b81ee5G.jpg',
         images: [
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://ae01.alicdn.com/kf/S5ab384465e9f4e6aaa44d700b6b81ee5G.jpg',
         ],
         description: 'Иридиевые свечи зажигания. Долгий срок службы, стабильная искра.',
         specifications: {
@@ -184,20 +172,18 @@ const productsData = [
     },
     {
         id: 7,
-        name: 'Фара передняя левая',
+        name: 'Фара передняя левая CAMRY(2007)',
         price: 7800,
         category: 'body',
-        brand: 'Bosch',
-        image: 'https://images.pexels.com/photos/38637/car-auto-headlight-light-38637.jpeg?auto=compress&cs=tinysrgb&w=600',
+        brand: 'TOYOTA',
+        image: 'https://optikadepo.ru/upload/shop_2/1/4/4/item_14491993/shop_items_catalog_image14491993.jpg',
         images: [
-            'https://images.pexels.com/photos/38637/car-auto-headlight-light-38637.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/38637/car-auto-headlight-light-38637.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://optikadepo.ru/upload/shop_2/1/4/4/item_14491993/shop_items_catalog_image14491993.jpg'
         ],
         description: 'Галогенная фара с линзой. Отличное освещение дороги в любых условиях.',
         specifications: {
-            'Производитель': 'Bosch',
-            'Страна': 'Германия',
+            'Производитель': 'TOYOTA',
+            'Страна': 'Япония',
             'Тип': 'Галоген',
             'Позиция': 'Левая',
             'Цоколь': 'H7'
@@ -212,11 +198,9 @@ const productsData = [
         price: 6500,
         category: 'exhaust',
         brand: 'Walker',
-        image: 'https://images.pexels.com/photos/8103553/pexels-photo-8103553.jpeg?auto=compress&cs=tinysrgb&w=600',
+        image: 'https://static.adata.by/images/13/00131033203255.jpg',
         images: [
-            'https://images.pexels.com/photos/8103553/pexels-photo-8103553.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/8103553/pexels-photo-8103553.jpeg?auto=compress&cs=tinysrgb&w=800'
+            'https://static.adata.by/images/13/00131033203255.jpg'
         ],
         description: 'Глушитель задний с насадкой. Улучшает звук и внешний вид автомобиля.',
         specifications: {
@@ -229,180 +213,6 @@ const productsData = [
         rating: 4.6,
         reviews: 112,
         stock: 12
-    },
-    {
-        id: 9,
-        name: 'Стартер Bosch',
-        price: 12500,
-        oldPrice: 13500,
-        category: 'electrical',
-        brand: 'Bosch',
-        image: 'https://images.pexels.com/photos/3998383/pexels-photo-3998383.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/3998383/pexels-photo-3998383.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/110296/pexels-photo-110296.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/3998383/pexels-photo-3998383.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Стартер для легковых автомобилей, мощность 1.4 кВт. Надежный запуск в любую погоду.',
-        specifications: {
-            'Производитель': 'Bosch',
-            'Страна': 'Германия',
-            'Мощность': '1.4 кВт',
-            'Напряжение': '12V',
-            'Гарантия': '2 года'
-        },
-        rating: 4.7,
-        reviews: 87,
-        stock: 5,
-        isNew: true
-    },
-    {
-        id: 10,
-        name: 'Генератор Denso',
-        price: 15800,
-        category: 'electrical',
-        brand: 'Denso',
-        image: 'https://images.pexels.com/photos/3998383/pexels-photo-3998383.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/3998383/pexels-photo-3998383.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/110296/pexels-photo-110296.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/3998383/pexels-photo-3998383.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Генератор 120А для японских автомобилей. Стабильное напряжение.',
-        specifications: {
-            'Производитель': 'Denso',
-            'Страна': 'Япония',
-            'Ток': '120 А',
-            'Напряжение': '12V',
-            'Гарантия': '2 года'
-        },
-        rating: 4.9,
-        reviews: 45,
-        stock: 3,
-        isHit: true
-    },
-    {
-        id: 11,
-        name: 'Ремень ГРМ Gates',
-        price: 2800,
-        category: 'engine',
-        brand: 'Gates',
-        image: 'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Ремень газораспределительного механизма. Высокая прочность и износостойкость.',
-        specifications: {
-            'Производитель': 'Gates',
-            'Страна': 'США',
-            'Длина': '1750 мм',
-            'Ширина': '25 мм',
-            'Зубья': '140'
-        },
-        rating: 4.6,
-        reviews: 78,
-        stock: 15
-    },
-    {
-        id: 12,
-        name: 'Насос водяной Febi',
-        price: 4200,
-        category: 'engine',
-        brand: 'Febi',
-        image: 'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Водяной насос (помпа) системы охлаждения. Крыльчатка из металла.',
-        specifications: {
-            'Производитель': 'Febi',
-            'Страна': 'Германия',
-            'Тип': 'С крыльчаткой',
-            'Материал': 'Металл',
-            'Гарантия': '2 года'
-        },
-        rating: 4.5,
-        reviews: 56,
-        stock: 7
-    },
-    {
-        id: 13,
-        name: 'Тормозной диск Zimmermann',
-        price: 5800,
-        category: 'brakes',
-        brand: 'Zimmermann',
-        image: 'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Тормозной диск вентилируемый. Высокая эффективность торможения.',
-        specifications: {
-            'Производитель': 'Zimmermann',
-            'Страна': 'Германия',
-            'Диаметр': '300 мм',
-            'Толщина': '28 мм',
-            'Тип': 'Вентилируемый'
-        },
-        rating: 4.8,
-        reviews: 92,
-        stock: 10,
-        isHit: true
-    },
-    {
-        id: 14,
-        name: 'Сайлентблок Lemförder',
-        price: 3200,
-        category: 'suspension',
-        brand: 'Lemförder',
-        image: 'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Сайлентблок переднего рычага. Оригинальное качество.',
-        specifications: {
-            'Производитель': 'Lemförder',
-            'Страна': 'Германия',
-            'Позиция': 'Передний',
-            'Материал': 'Полиуретан',
-            'Гарантия': '2 года'
-        },
-        rating: 4.7,
-        reviews: 43,
-        stock: 12
-    },
-    {
-        id: 15,
-        name: 'Моторное масло Castrol',
-        price: 4800,
-        oldPrice: 5200,
-        category: 'oil',
-        brand: 'Castrol',
-        image: 'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=600',
-        images: [
-            'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=800',
-            'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=800'
-        ],
-        description: 'Синтетическое масло Castrol EDGE 5W-30. Максимальная защита двигателя.',
-        specifications: {
-            'Производитель': 'Castrol',
-            'Страна': 'Великобритания',
-            'Вязкость': '5W-30',
-            'Объем': '4 л',
-            'Спецификация': 'API SN'
-        },
-        rating: 4.9,
-        reviews: 234,
-        stock: 18,
-        isNew: true
     }
 ];
 
@@ -426,8 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Скрыть загрузчик через 1 секунду
     setTimeout(() => {
-        const loader = document.getElementById('page-loader');
-        if (loader) loader.classList.add('hidden');
+        document.getElementById('page-loader').classList.add('hidden');
     }, 1000);
 });
 
@@ -447,7 +256,7 @@ function initTelegram() {
 
 function loadProducts() {
     products = productsData;
-    console.log(`Загружено ${products.length} товаров с уникальными изображениями`);
+    console.log(`Загружено ${products.length} товаров`);
 }
 
 function setupUI() {
@@ -480,12 +289,9 @@ function setupNavigation() {
     });
     
     // Иконка корзины в шапке
-    const cartIcon = document.getElementById('cart-icon');
-    if (cartIcon) {
-        cartIcon.addEventListener('click', () => {
-            navigateTo('cart');
-        });
-    }
+    document.getElementById('cart-icon').addEventListener('click', () => {
+        navigateTo('cart');
+    });
 }
 
 function navigateTo(page) {
@@ -530,9 +336,6 @@ function navigateTo(page) {
             case 'favorites':
                 renderFavoritesPage();
                 break;
-            case 'product':
-                // product page is handled separately
-                break;
             case 'checkout':
                 renderCheckoutPage();
                 break;
@@ -550,8 +353,6 @@ function setupSearch() {
     const searchInput = document.getElementById('search-input');
     const searchBtn = document.getElementById('search-btn');
     const suggestions = document.getElementById('search-suggestions');
-    
-    if (!searchInput || !searchBtn || !suggestions) return;
     
     searchInput.addEventListener('input', () => {
         clearTimeout(searchTimeout);
@@ -598,8 +399,6 @@ function setupSearch() {
 
 function showSearchSuggestions(query) {
     const suggestions = document.getElementById('search-suggestions');
-    if (!suggestions) return;
-    
     const filtered = products.filter(p => 
         p.name.toLowerCase().includes(query.toLowerCase()) ||
         p.description.toLowerCase().includes(query.toLowerCase()) ||
@@ -611,13 +410,8 @@ function showSearchSuggestions(query) {
     } else {
         suggestions.innerHTML = filtered.map(p => `
             <div class="suggestion-item" onclick="viewProduct(${p.id})">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="${p.image}" alt="${p.name}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;">
-                    <div>
-                        <div class="suggestion-name">${p.name}</div>
-                        <div class="suggestion-category">${getCategoryName(p.category)} • ${p.price} ₽</div>
-                    </div>
-                </div>
+                <div class="suggestion-name">${p.name}</div>
+                <div class="suggestion-category">${getCategoryName(p.category)} • ${p.price} ₽</div>
             </div>
         `).join('');
     }
@@ -660,19 +454,14 @@ function setupCategoryChips() {
 // ==============================================
 function setupQuickCart() {
     const quickCart = document.getElementById('quick-cart');
-    if (quickCart) {
-        quickCart.addEventListener('click', () => {
-            navigateTo('cart');
-        });
-    }
+    quickCart.addEventListener('click', () => {
+        navigateTo('cart');
+    });
 }
 
 function updateQuickCart() {
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const quickCartTotal = document.getElementById('quick-cart-total');
-    if (quickCartTotal) {
-        quickCartTotal.textContent = formatPrice(total) + ' ₽';
-    }
+    document.getElementById('quick-cart-total').textContent = formatPrice(total) + ' ₽';
 }
 
 // ==============================================
@@ -687,13 +476,11 @@ function setupModals() {
 }
 
 function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) modal.classList.add('active');
+    document.getElementById(modalId).classList.add('active');
 }
 
 function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) modal.classList.remove('active');
+    document.getElementById(modalId).classList.remove('active');
 }
 
 function closeAllModals() {
@@ -709,7 +496,6 @@ function closeAllModals() {
 // Каталог
 function renderCatalogPage() {
     const page = document.getElementById('catalog-page');
-    if (!page) return;
     
     let filteredProducts = [...products];
     
@@ -817,6 +603,7 @@ function renderCatalogPage() {
 
 function renderProductCard(product) {
     const isFavorite = favorites.includes(product.id);
+    const inCart = cart.find(item => item.id === product.id);
     
     return `
         <div class="product-card" onclick="viewProduct(${product.id})">
@@ -827,8 +614,7 @@ function renderProductCard(product) {
             </div>
             
             <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" loading="lazy"
-                     onerror="this.src='https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                <img src="${product.image}" alt="${product.name}" loading="lazy">
             </div>
             
             <div class="product-actions">
@@ -880,16 +666,15 @@ function renderProductCard(product) {
 // Категории
 function renderCategoriesPage() {
     const page = document.getElementById('categories-page');
-    if (!page) return;
     
     const categories = [
-        { id: 'engine', name: 'Двигатель', icon: 'fa-engine', count: 45, color: '#E31C23', image: 'https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        { id: 'brakes', name: 'Тормозная система', icon: 'fa-car-brake', count: 32, color: '#FF6B00', image: 'https://images.pexels.com/photos/1256510/pexels-photo-1256510.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        { id: 'suspension', name: 'Подвеска', icon: 'fa-car-side', count: 28, color: '#00C853', image: 'https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        { id: 'electrical', name: 'Электрика', icon: 'fa-bolt', count: 56, color: '#2979FF', image: 'https://images.pexels.com/photos/110296/pexels-photo-110296.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        { id: 'body', name: 'Кузов', icon: 'fa-car', count: 67, color: '#9C27B0', image: 'https://images.pexels.com/photos/38637/car-auto-headlight-light-38637.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        { id: 'exhaust', name: 'Выхлопная система', icon: 'fa-smog', count: 23, color: '#795548', image: 'https://images.pexels.com/photos/8103553/pexels-photo-8103553.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        { id: 'oil', name: 'Масла', icon: 'fa-oil-can', count: 38, color: '#8BC34A', image: 'https://images.pexels.com/photos/4489729/pexels-photo-4489729.jpeg?auto=compress&cs=tinysrgb&w=200' }
+        { id: 'engine', name: 'Двигатель', icon: 'fa-engine', count: 45, color: '#E31C23' },
+        { id: 'brakes', name: 'Тормозная система', icon: 'fa-car-brake', count: 32, color: '#FF6B00' },
+        { id: 'suspension', name: 'Подвеска', icon: 'fa-car-side', count: 28, color: '#00C853' },
+        { id: 'electrical', name: 'Электрика', icon: 'fa-bolt', count: 56, color: '#2979FF' },
+        { id: 'body', name: 'Кузов', icon: 'fa-car', count: 67, color: '#9C27B0' },
+        { id: 'exhaust', name: 'Выхлопная система', icon: 'fa-smog', count: 23, color: '#795548' },
+        { id: 'oil', name: 'Масла', icon: 'fa-oil-can', count: 38, color: '#8BC34A' }
     ];
     
     page.innerHTML = `
@@ -901,13 +686,11 @@ function renderCategoriesPage() {
         <div class="categories-grid">
             ${categories.map(cat => `
                 <div class="category-card" onclick="filterByCategory('${cat.id}')">
-                    <div class="category-image">
-                        <img src="${cat.image}" alt="${cat.name}" style="width: 100%; height: 150px; object-fit: cover;">
+                    <div class="category-icon" style="color: ${cat.color}">
+                        <i class="fas ${cat.icon}"></i>
                     </div>
-                    <div class="category-info">
-                        <h3>${cat.name}</h3>
-                        <div class="category-count">${cat.count} товаров</div>
-                    </div>
+                    <h3>${cat.name}</h3>
+                    <div class="category-count">${cat.count} товаров</div>
                 </div>
             `).join('')}
         </div>
@@ -917,7 +700,6 @@ function renderCategoriesPage() {
 // Корзина
 function renderCartPage() {
     const page = document.getElementById('cart-page');
-    if (!page) return;
     
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const discount = subtotal > 10000 ? subtotal * 0.1 : 0;
@@ -996,6 +778,11 @@ function renderCartPage() {
                         <span class="summary-total-price">${formatPrice(total)} ₽</span>
                     </div>
                     
+                    <div class="discount-code">
+                        <input type="text" id="promo-code" placeholder="Промокод">
+                        <button class="btn-apply" onclick="applyPromoCode()">Применить</button>
+                    </div>
+                    
                     <div class="cart-actions">
                         <button class="btn-primary btn-large" onclick="proceedToCheckout()">
                             <i class="fas fa-credit-card"></i> Оформить заказ
@@ -1015,7 +802,6 @@ function renderCartPage() {
 // Заказы
 function renderOrdersPage() {
     const page = document.getElementById('orders-page');
-    if (!page) return;
     
     page.innerHTML = `
         <div class="page-header">
@@ -1081,7 +867,6 @@ function renderOrdersPage() {
 // Профиль
 function renderProfilePage() {
     const page = document.getElementById('profile-page');
-    if (!page) return;
     
     const profileData = JSON.parse(localStorage.getItem('profile')) || {
         phone: '+7 (999) 123-45-67',
@@ -1171,6 +956,17 @@ function renderProfilePage() {
                         <span class="slider"></span>
                     </label>
                 </div>
+                
+                <div class="settings-row">
+                    <div>
+                        <div class="setting-label">Темная тема</div>
+                        <div class="setting-description">Использовать темную тему</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
             
             <div class="profile-section">
@@ -1179,8 +975,7 @@ function renderProfilePage() {
                     <h3>Поддержка</h3>
                 </div>
                 
-                <button class="btn-secondary" onclick="contactSupport()">
-                    <i class="fas fa-comment"></i> Онлайн-чат
+                
                 </button>
                 <button class="btn-secondary" style="margin-top: 10px;" onclick="callSupport()">
                     <i class="fas fa-phone"></i> Позвонить
@@ -1193,8 +988,6 @@ function renderProfilePage() {
 // Избранное
 function renderFavoritesPage() {
     const page = document.getElementById('favorites-page');
-    if (!page) return;
-    
     const favoriteProducts = products.filter(p => favorites.includes(p.id));
     
     page.innerHTML = `
@@ -1228,22 +1021,20 @@ function renderProductPage(productId) {
     if (!product) return;
     
     const page = document.getElementById('product-page');
-    if (!page) return;
-    
     const isFavorite = favorites.includes(product.id);
+    const inCart = cart.find(item => item.id === product.id);
     
     page.innerHTML = `
         <div class="product-detail">
             <div class="product-detail-images">
                 <div class="main-image">
-                    <img src="${product.images[0]}" alt="${product.name}" id="main-product-image"
-                         onerror="this.src='${product.image}'">
+                    <img src="${product.images[0]}" alt="${product.name}" id="main-product-image">
                 </div>
                 <div class="thumbnails">
                     ${product.images.map((img, index) => `
                         <div class="thumbnail ${index === 0 ? 'active' : ''}" 
                              onclick="changeProductImage('${img}', this)">
-                            <img src="${img}" alt="" onerror="this.src='${product.image}'">
+                            <img src="${img}" alt="">
                         </div>
                     `).join('')}
                 </div>
@@ -1301,7 +1092,6 @@ function renderProductPage(productId) {
 // Оформление заказа
 function renderCheckoutPage() {
     const page = document.getElementById('checkout-page');
-    if (!page) return;
     
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const discount = subtotal > 10000 ? subtotal * 0.1 : 0;
@@ -1425,13 +1215,9 @@ function quickView(productId, event) {
     const modal = document.getElementById('quick-view-modal');
     const content = document.getElementById('quick-view-content');
     
-    if (!modal || !content) return;
-    
     content.innerHTML = `
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px;">
-            <img src="${product.image}" alt="${product.name}" 
-                 style="width: 100%; border-radius: 12px; object-fit: cover;"
-                 onerror="this.src='https://images.pexels.com/photos/4489728/pexels-photo-4489728.jpeg?auto=compress&cs=tinysrgb&w=600'">
+            <img src="${product.image}" alt="${product.name}" style="width: 100%; border-radius: 12px;">
             <div>
                 <h2>${product.name}</h2>
                 <p style="color: var(--text-muted); margin: 10px 0;">${product.description}</p>
@@ -1449,8 +1235,7 @@ function quickView(productId, event) {
 }
 
 function changeProductImage(src, element) {
-    const mainImage = document.getElementById('main-product-image');
-    if (mainImage) mainImage.src = src;
+    document.getElementById('main-product-image').src = src;
     
     document.querySelectorAll('.thumbnail').forEach(thumb => {
         thumb.classList.remove('active');
@@ -1484,22 +1269,19 @@ function setupFilterListeners() {
         });
     });
     
-    const inStockCheckbox = document.getElementById('in-stock');
-    if (inStockCheckbox) {
-        inStockCheckbox.addEventListener('change', () => {
-            // Не применяем автоматически
-        });
-    }
+    document.getElementById('in-stock')?.addEventListener('change', () => {
+        // Не применяем автоматически
+    });
 }
 
 function applyFilters() {
-    const minPrice = document.getElementById('min-price');
-    const maxPrice = document.getElementById('max-price');
-    const inStock = document.getElementById('in-stock');
+    const minPrice = document.getElementById('min-price').value;
+    const maxPrice = document.getElementById('max-price').value;
+    const inStock = document.getElementById('in-stock').checked;
     
-    filters.minPrice = minPrice && minPrice.value ? parseInt(minPrice.value) : null;
-    filters.maxPrice = maxPrice && maxPrice.value ? parseInt(maxPrice.value) : null;
-    filters.inStock = inStock ? inStock.checked : false;
+    filters.minPrice = minPrice ? parseInt(minPrice) : null;
+    filters.maxPrice = maxPrice ? parseInt(maxPrice) : null;
+    filters.inStock = inStock;
     
     // Собираем выбранные бренды
     filters.brands = [];
@@ -1697,10 +1479,8 @@ function placeOrder() {
     updateCounters();
     
     // Открываем окно оплаты
-    const paymentAmount = document.getElementById('payment-amount');
-    const paymentTotal = document.getElementById('payment-total');
-    if (paymentAmount) paymentAmount.textContent = formatPrice(subtotal) + ' ₽';
-    if (paymentTotal) paymentTotal.textContent = formatPrice(total) + ' ₽';
+    document.getElementById('payment-amount').textContent = formatPrice(subtotal) + ' ₽';
+    document.getElementById('payment-total').textContent = formatPrice(total) + ' ₽';
     openModal('payment-modal');
 }
 
@@ -1753,15 +1533,8 @@ function repeatOrder(orderId) {
 // ==============================================
 function updateUserInfo() {
     if (currentUser) {
-        const userNameElement = document.getElementById('user-name');
-        const userEmailElement = document.getElementById('user-email');
-        
-        if (userNameElement) {
-            userNameElement.textContent = `${currentUser.first_name} ${currentUser.last_name || ''}`;
-        }
-        if (userEmailElement) {
-            userEmailElement.textContent = currentUser.username ? `@${currentUser.username}` : '';
-        }
+        document.getElementById('user-name').textContent = `${currentUser.first_name} ${currentUser.last_name || ''}`;
+        document.getElementById('user-email').textContent = currentUser.username ? `@${currentUser.username}` : '';
     }
 }
 
@@ -1865,46 +1638,36 @@ function updateCounters() {
     const cartBadges = document.querySelectorAll('#cart-count, #nav-cart-count');
     
     cartBadges.forEach(badge => {
-        if (badge) {
-            badge.textContent = cartCount;
-            badge.style.display = cartCount > 0 ? 'flex' : 'none';
-        }
+        badge.textContent = cartCount;
+        badge.style.display = cartCount > 0 ? 'flex' : 'none';
     });
     
     const favoritesCount = favorites.length;
     const favBadges = document.querySelectorAll('#nav-favorites-count');
     
     favBadges.forEach(badge => {
-        if (badge) {
-            badge.textContent = favoritesCount;
-            badge.style.display = favoritesCount > 0 ? 'flex' : 'none';
-        }
+        badge.textContent = favoritesCount;
+        badge.style.display = favoritesCount > 0 ? 'flex' : 'none';
     });
     
     updateQuickCart();
 }
 
 function openConfirmModal(title, message, onConfirm) {
-    const confirmTitle = document.getElementById('confirm-title');
-    const confirmMessage = document.getElementById('confirm-message');
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-message').textContent = message;
+    
     const confirmBtn = document.getElementById('confirm-action');
-    
-    if (confirmTitle) confirmTitle.textContent = title;
-    if (confirmMessage) confirmMessage.textContent = message;
-    
-    if (confirmBtn) {
-        confirmBtn.onclick = () => {
-            onConfirm();
-            closeModal('confirm-modal');
-        };
-    }
+    confirmBtn.onclick = () => {
+        onConfirm();
+        closeModal('confirm-modal');
+    };
     
     openModal('confirm-modal');
 }
 
 function showNotification(message, type = 'info') {
     const container = document.getElementById('notification-container');
-    if (!container) return;
     
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
@@ -1937,6 +1700,13 @@ function getNotificationIcon(type) {
     return icons[type] || icons.info;
 }
 
+function applyPromoCode() {
+    const code = document.getElementById('promo-code').value;
+    if (code) {
+        showNotification('Промокод применен', 'success');
+    }
+}
+
 // ==============================================
 // 17. ДЕЛАЕМ ФУНКЦИИ ГЛОБАЛЬНЫМИ
 // ==============================================
@@ -1965,5 +1735,6 @@ window.logout = logout;
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.showNotification = showNotification;
+window.applyPromoCode = applyPromoCode;
 
-console.log('AutoParts TMA успешно загружен с 15 товарами и уникальными изображениями! 🚗📸');
+console.log('AutoParts TMA успешно загружен! 🚗');
