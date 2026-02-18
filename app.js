@@ -975,10 +975,11 @@ function renderProfilePage() {
                     <h3>Поддержка</h3>
                 </div>
                 
-                
+                <button class="btn-secondary" onclick="contactSupport()">
+                    <i class="fas fa-comment"></i> 
                 </button>
                 <button class="btn-secondary" style="margin-top: 10px;" onclick="callSupport()">
-                    <i class="fas fa-phone"></i> Позвонить
+                    <i class="fas fa-phone"></i> 
                 </button>
             </div>
         </div>
@@ -1563,7 +1564,7 @@ function toggleSetting(setting, value) {
 }
 
 function contactSupport() {
-    window.open('https://t.me/autoparts_support', '_blank');
+    window.open('https://t.me/vadichka0006', '_blank');
 }
 
 function callSupport() {
