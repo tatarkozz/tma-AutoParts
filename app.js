@@ -668,7 +668,7 @@ function renderCategoriesPage() {
     const page = document.getElementById('categories-page');
     
     const categories = [
-        { id: 'engine', name: 'Двигатель', icon: 'fa-engine', count: 45, color: '#E31C23' },
+        { id: 'engine', name: 'Двигатель', icon: 'fa-engine', count: 45, color: '#c87f00' },
         { id: 'brakes', name: 'Тормозная система', icon: 'fa-car-brake', count: 32, color: '#FF6B00' },
         { id: 'suspension', name: 'Подвеска', icon: 'fa-car-side', count: 28, color: '#00C853' },
         { id: 'electrical', name: 'Электрика', icon: 'fa-bolt', count: 56, color: '#2979FF' },
@@ -1737,5 +1737,6 @@ window.openModal = openModal;
 window.closeModal = closeModal;
 window.showNotification = showNotification;
 window.applyPromoCode = applyPromoCode;
+
 
 console.log('AutoParts TMA успешно загружен! 🚗');
