@@ -649,7 +649,7 @@ body {
 
 .filter-price {
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 
 .filter-price input {
@@ -2207,4 +2207,5 @@ input:checked + .slider:before {
         min-width: 200px;
         max-width: 300px;
     }
+
 }
