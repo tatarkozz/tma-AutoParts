@@ -655,7 +655,7 @@ body {
 .filter-price input {
     flex: 1;
     height: 40px;
-   width: 40px; 
+    width: 30px;
     background: var(--bg-secondary);
     border: 2px solid var(--steel);
     border-radius: var(--radius-md);
@@ -2210,4 +2210,5 @@ input:checked + .slider:before {
     }
 
 }
+
 
